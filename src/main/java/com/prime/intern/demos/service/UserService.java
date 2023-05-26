@@ -1,6 +1,6 @@
-package com.example.demo.service;
+package com.prime.intern.demos.service;
 
-import com.example.demo.model.UserInfo;
+import com.prime.intern.demos.model.UserInfo;
 
 
 public interface UserService {

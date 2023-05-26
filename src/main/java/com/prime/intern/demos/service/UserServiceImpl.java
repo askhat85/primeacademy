@@ -1,11 +1,11 @@
-package com.example.demo.service;
+package com.prime.intern.demos.service;
 
-import com.example.demo.model.UserInfo;
-import com.example.demo.repository.UserInfoRepository;
+import com.prime.intern.demos.model.UserInfo;
+import com.prime.intern.demos.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +22,9 @@ public class UserServiceImpl implements UserService{
     }
     @Override
     public UserInfo getCurrentUser(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User principal = (User)authentication.getPrincipal();
-        return userInfoRepository.findByLogin(principal.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("user not found"));
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        return userInfoRepository.findByLogin(userDetails.getUsername())
+                .orElseThrow(() -> new IllegalArgumentException("user not found " + userDetails.getUsername()));
     }
 }

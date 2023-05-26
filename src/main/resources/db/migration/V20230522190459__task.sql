@@ -13,4 +13,4 @@ CREATE TABLE user_info (
         password TEXT NOT NULL,
         roles TEXT NOT NULL
 );
-CREATE INDEX login_idx ON user_info (login);
+CREATE INDEX login_idx2 ON user_info (login);
