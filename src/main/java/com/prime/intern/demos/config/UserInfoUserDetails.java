@@ -58,4 +58,13 @@ public class UserInfoUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfoUserDetails{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", authority=" + authority +
+                '}';
+    }
 }

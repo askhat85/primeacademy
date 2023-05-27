@@ -28,18 +28,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.csrf().disable().cors().disable()
                 .authorizeRequests()
                 .antMatchers("/login*").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
-//                .antMatchers(HttpMethod.GET, "/tasks/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/login")
                 .passwordParameter("password").usernameParameter("login")
-//                .failureHandler(customAuthenticationFailureHandler)
-//                .successHandler(customAuthenticationSuccessHandler)
+                .failureHandler(customAuthenticationFailureHandler)
+                .successHandler(customAuthenticationSuccessHandler)
+                .and()
+                .httpBasic()
                 .and()
                 .sessionManagement();
     }
