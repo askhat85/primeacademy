@@ -5,10 +5,7 @@ import com.prime.intern.demos.repository.TaskRepository;
 import com.prime.intern.demos.service.TaskService;
 import com.prime.intern.demos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 
 @RestController
@@ -48,23 +45,21 @@ public class TaskController {
 
     @DeleteMapping("/tasks/{id}")
     public void delete(@PathVariable Long id){
-        Task task = taskService.getCurrentUsersTaskById(id);
-        if(task!=null) {
-            taskRepository.delete(task);
+        if(taskService.getCurrentUsersTaskById(id)!=null) {
+            taskRepository.deleteById(id);
         }
     }
 
     @PatchMapping("/tasks/{id}:mark-as-done")
     public void patchMethod(@PathVariable Long id){
-        Task task = taskService.getCurrentUsersTaskById(id);
-        if(task!=null) {
+        if(taskService.getCurrentUsersTaskById(id)!=null) {
             taskRepository.markAsDone(id);
         }
     }
 
     @PatchMapping("/tasks/{id}")
     public void patchMethod(@PathVariable Long id, @RequestBody Task task){
-        if(task.getUserId() == userService.getCurrentUser().getId() && task.isDone()) {
+        if(taskService.getCurrentUsersTaskById(id)!=null && task.isDone()) {
             taskRepository.markAsDone(id);
         }
     }
