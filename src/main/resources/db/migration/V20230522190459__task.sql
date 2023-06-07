@@ -1,3 +1,4 @@
+DROP TABLE task;
 CREATE TABLE task (
         id BIGSERIAL PRIMARY KEY,
         date DATE NOT NULL,
@@ -7,6 +8,7 @@ CREATE TABLE task (
 CREATE INDEX task_date_idx ON task (date);
 CREATE INDEX task_done_idx ON task (done);
 
+DROP TABLE user_info;
 CREATE TABLE user_info (
         id BIGSERIAL PRIMARY KEY,
         login TEXT NOT NULL,
