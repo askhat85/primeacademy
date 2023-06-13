@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -17,7 +16,7 @@ public class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl userService;
     @Mock
-    private UserInfoRepository repository;
+    private UserInfoRepository userInfoRepository;
     @Mock
     private PasswordEncoder passwordEncoder;
 
@@ -29,7 +28,7 @@ public class UserServiceImplTest {
         Mockito.doReturn(encodedPassword).when(passwordEncoder)
                 .encode(userInfo.getPassword());
         userService.create(userInfo);
-        Mockito.verify(repository).save(userInfo);
+        Mockito.verify(userInfoRepository).save(userInfo);
         Assertions.assertEquals(encodedPassword, userInfo.getPassword());
     }
 }
