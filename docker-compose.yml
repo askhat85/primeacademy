@@ -1,0 +1,27 @@
+version: '3'
+services:
+  demos:
+    image: demos
+    ports:
+      - 8080:8080
+    working_dir: /demos
+    volumes:
+      - ./:/demos
+    environment:
+      DB_URL: "jdbc:postgresql://pgdb-course:5432/course"
+      DB_USERNAME: postgres
+      DB_PASSWORD: 123456
+    depends_on:
+      - pgdb-course
+
+  pgdb-course:
+    environment:
+    - DB_NAME=course
+    - PGDATA=/var/lib/postgresql/data/course
+    - POSTGRES_PASSWORD=123456
+    image: 'postgres:12.3-alpine'
+    ports:
+    - 5432:5432
+    restart: always
+    volumes:
+      - ./pgdb:/docker-entrypoint-initdb.d:ro
