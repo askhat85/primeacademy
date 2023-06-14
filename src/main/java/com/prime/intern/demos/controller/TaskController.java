@@ -21,12 +21,12 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/{id}")
-    public Task getById(@PathVariable Long id) throws Exception {
+    public Task getById(@PathVariable Long id) {
         return taskService.getCurrentUsersTaskById(id);
     }
 
     @PutMapping("/tasks/{id}")
-    public Task update(@PathVariable Long id, @RequestBody Task task) throws Exception {
+    public Task update(@PathVariable Long id, @RequestBody Task task) {
         return taskService.update(id, task);
     }
 
