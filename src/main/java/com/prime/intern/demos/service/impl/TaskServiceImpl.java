@@ -1,13 +1,12 @@
 package com.prime.intern.demos.service.impl;
 
+import com.prime.intern.demos.exception.TaskNotFoundException;
 import com.prime.intern.demos.model.Task;
 import com.prime.intern.demos.repository.TaskRepository;
 import com.prime.intern.demos.service.TaskService;
 import com.prime.intern.demos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -23,7 +22,7 @@ public class TaskServiceImpl implements TaskService {
                 return t;
             }
         }
-        return null;
+        throw new TaskNotFoundException("Task id " + id + " is not found");
     }
 
     @Override
