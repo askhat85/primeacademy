@@ -6,6 +6,7 @@ import com.prime.intern.demos.repository.TaskRepository;
 import com.prime.intern.demos.service.TaskService;
 import com.prime.intern.demos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,7 +23,7 @@ public class TaskServiceImpl implements TaskService {
                 return t;
             }
         }
-        throw new TaskNotFoundException("Task id " + id + " is not found");
+        throw new TaskNotFoundException(HttpStatus.NOT_FOUND, "Task id " + id + " is not found");
     }
 
     @Override
@@ -39,12 +40,9 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task update(Long id, Task task) {
         Task usersTask = getCurrentUsersTaskById(id);
-        if(usersTask!=null) {
-            task.setId(id);
-            task.setUserId(usersTask.getUserId());
-            return taskRepository.save(task);
-        }
-        return null;
+        task.setId(id);
+        task.setUserId(usersTask.getUserId());
+        return taskRepository.save(task);
     }
 
     @Override

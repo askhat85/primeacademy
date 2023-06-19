@@ -18,3 +18,7 @@ logging:
     org:
       springframework:
         security: TRACE
+
+server:
+  error:
+    include-message: always
